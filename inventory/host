@@ -1,0 +1,8 @@
+[win]
+192.168.1.21
+
+[win:vars]
+ansible_connection=winrm
+ansible_user=congthanh
+ansible_password=hanoi2020
+ansible_winrm_server_cert_validation=ignore
