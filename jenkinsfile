@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("Ping server"){
             steps{
-                sh 'ansible win -m win_ping -i inventory/host'
+                sh 'ansible-playbook -m win_ping -i inventory/host'
             }
         }
 
