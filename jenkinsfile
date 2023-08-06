@@ -1,19 +1,19 @@
 pipeline {
     agent {
-		node { label 'slave-2' }
+		node { label 'slave-01' }
 	}
 	
     stages {
         stage("Ping server"){
             steps{
-                sh 'ansible-playbook -m win_ping -i inventory/host'
+                echo 'Building..'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building..'
-		        sh 'mvn -B -DskipTests clean package'
+		        //sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
@@ -24,6 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                bat 'ansible-playbook -i inventory/host playbooks/playbook-rollout.yml --extra-vars "ansible_user=congthanh ansible_password=1234"'
             }
         }
     }
